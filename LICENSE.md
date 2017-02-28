@@ -1,3 +1,5 @@
+# This project is licensed under the terms of the ISC license.
+
 Copyright (c) 2017 D2SI <oss@d2-si.eu>
 
 Permission to use, copy, modify, and distribute this software for any
