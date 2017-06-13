@@ -62,7 +62,7 @@ variable "vpc_cidr" {
 #
 
 module "backbone" {
-  source          = "aws/backbone"
+  source          = "github.com/d2si-oss/terraform-modules//backbone"
   region          = "${var.region}"
   vpc_cidr        = "${var.vpc_cidr}"
   public_subnets  = "${var.public_subnets}"

@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
 }
 
 module "helper" {
-  source    = "../helper"
+  source    = "github.com/d2si-oss/terraform-modules//helper"
   azs_count = "${var.azs_count}"
 }
 

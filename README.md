@@ -8,12 +8,12 @@ repository contains sample stacks exercising some of these modules.
 
 ### AWS
 
-- [] Tags
-- [] SSH Bastion host
-- [] RDP Bastion host
-- [] NACL
-- [] DHCP option set
-- [] DNS
-- [] VPC flow log
-- [] IPsec VPN (connect multiple regions and/or on-prem)
-- [] OpenVPN
+- [ ] Tags
+- [ ] SSH Bastion host
+- [ ] RDP Bastion host
+- [ ] NACL
+- [ ] DHCP option set
+- [ ] DNS
+- [ ] VPC flow log
+- [ ] IPsec VPN (connect multiple regions and/or on-prem)
+- [ ] OpenVPN
