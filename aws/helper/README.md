@@ -7,8 +7,10 @@ included by other modules.
 
 ## Argument
 
-- `azs_count` (string, OPT) - amount of availability zones requested
-  - default: total amount of availability zones in the current region
+- `azs_count` (string)
+
+  Amount of availability zones requested.
+  - default: amount of AZs in the current region
 
 ## Outputs
 

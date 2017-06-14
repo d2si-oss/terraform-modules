@@ -2,32 +2,47 @@
 
 # AWS helper terraform module
 
-This module sets up a typical AWS backbone base infrastructure.
+This module sets up an AWS backbone base infrastructure.
 
 ## Arguments
 
-- `azs_count` (string, OPT) - amount of availability zones requested
-  - default: total amount of availability zones in the current region
+- `azs_count` (string)
 
-- `nat_type` (string, OPT) - type of NAT, can be 'none', 'single' or 'multi'
-  - default: single
+  Amount of availability zones requested.
+  - default: amount of AZs in the current region
 
-- `private_subnets` (list of maps, REQ) - list of private subnets: each one
-  takes a `name` and a `base_cidr`
-  - default: empty
+- `nat_type` (string)
 
-- `public_subnets` (list of maps, REQ) - list of public subnets: each one takes
-   a `name` and a `base_cidr`
-  - default: empty
+  Type of NAT, can be `none` (no NAT), `single` (one NAT gateway) or `multi`
+  (one NAT gateway per AZ).
+  - default: "single"
 
-- `region` (string, REQ) - the AWS region
-  - default: empty
+- `private_subnets` (list of maps)
 
-- `tags` (map, REQ) - tags list
-  - default: empty
+  List of private subnets: each one takes a `name` and a `base_cidr`.  
+  Each subnet CIDR will be computed based on the `base_cidr` and `azs_count`.
+  - default: none
 
-- `vpc_cidr` (string, REQ) - VPC CIDR block
-  - default: empty
+- `public_subnets` (list of maps)
+
+  List of public subnets each one takes a `name` and a `base_cidr`.  
+  Each subnet CIDR will be computed based on the `base_cidr` and `azs_count`.
+  - default: none
+
+- `region` (string)
+
+  AWS region.
+  - default: none
+
+- `tags` (map)
+
+  Tags list.
+  - default: none
+
+- `vpc_cidr` (string)
+
+  VPC CIDR block.
+  - default: none
 
 ## Outputs
 
