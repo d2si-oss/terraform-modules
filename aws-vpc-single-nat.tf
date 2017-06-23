@@ -19,6 +19,15 @@ variable "public_subnets" {
   ]
 }
 
+variable "public_subnet_names" {
+  type = "list"
+
+  default = [
+      "DMZ",
+      "Load-balancers"
+  ]
+}
+
 variable "private_subnets" {
   type = "list"
 
@@ -54,6 +63,7 @@ module "backbone" {
   region          = "${var.region}"
   vpc_cidr        = "${var.vpc_cidr}"
   public_subnets  = "${var.public_subnets}"
+  public_subnet_names  = "${var.public_subnet_names}"
   private_subnets = "${var.private_subnets}"
   tags            = "${var.tags}"
 }
