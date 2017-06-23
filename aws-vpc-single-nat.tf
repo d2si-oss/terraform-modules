@@ -14,14 +14,8 @@ variable "public_subnets" {
   type = "list"
 
   default = [
-    {
-      name      = "Public1"
-      base_cidr = "10.0.0.0/20"
-    },
-    {
-      name      = "Public2"
-      base_cidr = "10.0.32.0/20"
-    },
+      "10.0.0.0/20",
+      "10.0.32.0/20"
   ]
 }
 
@@ -29,14 +23,8 @@ variable "private_subnets" {
   type = "list"
 
   default = [
-    {
-      name      = "Private1"
-      base_cidr = "10.0.64.0/20"
-    },
-    {
-      name      = "Private2"
-      base_cidr = "10.0.96.0/20"
-    },
+      "10.0.64.0/20",
+      "10.0.96.0/20"
   ]
 }
 
