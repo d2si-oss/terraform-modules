@@ -1,7 +1,5 @@
 # AWS backbone terraform module
 
-# AWS helper terraform module
-
 This module sets up an AWS backbone base infrastructure.
 
 ## Arguments
