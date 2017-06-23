@@ -20,7 +20,7 @@ resource "aws_route_table" "public" {
 
 resource "aws_route_table_association" "public" {
   count          = "${length(module.helper.azs) * length(var.public_subnets)}"
-  subnet_id      = "${aws_subnet.public.*.id[count.index]}"
+  subnet_id      = "${element(aws_subnet.public.*.id,count.index)}"
   route_table_id = "${aws_route_table.public.id}"
 }
 
@@ -59,7 +59,9 @@ resource "aws_nat_gateway" "private_single" {
 
   # XXX TODO - Explain which subnet to use. In our case the subnet is the first
   # element of the 6 available, which is related to Public1.
-  subnet_id = "${aws_subnet.public.*.id[0]}"
+
+  # Workaround to avoid error "element() may not be used with an empty list, even if count for resource is 0"
+  subnet_id = "${length(var.private_subnets) == 0 ? "" : element(concat(aws_subnet.public.*.id,list("")),0)}"
 }
 
 resource "aws_route" "private_single" {
@@ -73,7 +75,7 @@ resource "aws_route" "private_single" {
 resource "aws_route_table_association" "private_single" {
   count = "${(length(var.private_subnets) != 0 && var.nat_type == "single" ? length(var.private_subnets) * length(module.helper.azs) : 0)}"
 
-  subnet_id      = "${aws_subnet.private.*.id[count.index]}"
+  subnet_id      = "${element(aws_subnet.private.*.id,count.index)}"
   route_table_id = "${aws_route_table.private_single.id}"
 }
 

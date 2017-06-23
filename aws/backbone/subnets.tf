@@ -14,7 +14,7 @@ resource "aws_subnet" "public" {
   vpc_id = "${aws_vpc.main.id}"
 
   # XXX TODO - Explain this block
-  cidr_block = "${cidrsubnet(lookup(var.public_subnets[ count.index / length(module.helper.azs) ],"base_cidr"),
+  cidr_block = "${cidrsubnet(element(var.public_subnets,count.index / length(module.helper.azs) ),
                                   ceil(log(length(module.helper.azs),2)),
                                   count.index % length(module.helper.azs)
                                 )}"
@@ -30,7 +30,7 @@ resource "aws_subnet" "private" {
   vpc_id = "${aws_vpc.main.id}"
 
   # XXX TODO - Explain this block
-  cidr_block = "${cidrsubnet(lookup(var.private_subnets[ count.index / length(module.helper.azs) ],"base_cidr"),
+  cidr_block = "${cidrsubnet(element(var.private_subnets, count.index / length(module.helper.azs) ),
                                   ceil(log(length(module.helper.azs),2)),
                                   count.index % length(module.helper.azs)
                                 )}"
