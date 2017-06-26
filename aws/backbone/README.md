@@ -17,15 +17,25 @@ This module sets up an AWS backbone base infrastructure.
 
 - `private_subnet_blocks` (list)
 
-  List of private subnets: each one takes a `name` and a `base_cidr`.  
-  Each subnet CIDR will be computed based on the `base_cidr` and `azs_count`.
+  List of private subnet blocks. Each subnet CIDR will be computed based on this
+  variable and `azs_count`.
   - default: none
+
+- `private_subnet_names` (list)
+
+  List of private subnet names (matching `private_subnet_blocks` ordering).
+  - default: private-${count.index}-${az}
 
 - `public_subnet_blocks` (list)
 
-  List of public subnets each one takes a `name` and a `base_cidr`.  
-  Each subnet CIDR will be computed based on the `base_cidr` and `azs_count`.
+  List of public subnet blocks. Each subnet CIDR will be computed based on this
+  variable and `azs_count`.
   - default: none
+
+- `public_subnet_names` (list)
+
+  List of public subnet names (matching `public_subnet_blocks` ordering).
+  - default: public-${count.index}-${az}
 
 - `region` (string)
 
@@ -45,7 +55,3 @@ This module sets up an AWS backbone base infrastructure.
 ## Outputs
 
 None.
-
-## Known issues
-
-Currently passing both a private and a public subnet is required.
