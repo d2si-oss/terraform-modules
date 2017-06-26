@@ -14,14 +14,17 @@ variable "public_subnets" {
   type = "list"
 
   default = [
-    {
-      name      = "Public1"
-      base_cidr = "10.0.0.0/20"
-    },
-    {
-      name      = "Public2"
-      base_cidr = "10.0.32.0/20"
-    },
+      "10.0.0.0/20",
+      "10.0.32.0/20"
+  ]
+}
+
+variable "public_subnet_names" {
+  type = "list"
+
+  default = [
+      "DMZ",
+      "Load-balancers"
   ]
 }
 
@@ -29,14 +32,8 @@ variable "private_subnets" {
   type = "list"
 
   default = [
-    {
-      name      = "Private1"
-      base_cidr = "10.0.64.0/20"
-    },
-    {
-      name      = "Private2"
-      base_cidr = "10.0.96.0/20"
-    },
+      "10.0.64.0/20",
+      "10.0.96.0/20"
   ]
 }
 
@@ -66,6 +63,7 @@ module "backbone" {
   region          = "${var.region}"
   vpc_cidr        = "${var.vpc_cidr}"
   public_subnets  = "${var.public_subnets}"
+  public_subnet_names  = "${var.public_subnet_names}"
   private_subnets = "${var.private_subnets}"
   tags            = "${var.tags}"
 }

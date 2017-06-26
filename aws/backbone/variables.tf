@@ -14,7 +14,17 @@ variable "private_subnets" {
   default = []
 }
 
+variable "private_subnet_names" {
+  type    = "list"
+  default = []
+}
+
 variable "public_subnets" {
+  type    = "list"
+  default = []
+}
+
+variable "public_subnet_names" {
   type    = "list"
   default = []
 }
