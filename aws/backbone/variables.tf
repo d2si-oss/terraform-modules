@@ -9,7 +9,7 @@ variable "nat_type" {
   default     = "single"
 }
 
-variable "private_subnets" {
+variable "private_subnet_blocks" {
   type    = "list"
   default = []
 }
@@ -19,7 +19,7 @@ variable "private_subnet_names" {
   default = []
 }
 
-variable "public_subnets" {
+variable "public_subnet_blocks" {
   type    = "list"
   default = []
 }

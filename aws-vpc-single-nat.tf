@@ -10,12 +10,12 @@
 # Variables
 #
 
-variable "public_subnets" {
+variable "private_subnet_blocks" {
   type = "list"
 
   default = [
-      "10.0.0.0/20",
-      "10.0.32.0/20"
+      "10.0.64.0/20",
+      "10.0.96.0/20"
   ]
 }
 
@@ -28,12 +28,12 @@ variable "public_subnet_names" {
   ]
 }
 
-variable "private_subnets" {
+variable "public_subnet_blocks" {
   type = "list"
 
   default = [
-      "10.0.64.0/20",
-      "10.0.96.0/20"
+      "10.0.0.0/20",
+      "10.0.32.0/20"
   ]
 }
 
@@ -62,8 +62,8 @@ module "backbone" {
   source          = "github.com/d2si-oss/terraform-modules//aws/backbone"
   region          = "${var.region}"
   vpc_cidr        = "${var.vpc_cidr}"
-  public_subnets  = "${var.public_subnets}"
+  public_subnet_blocks  = "${var.public_subnet_blocks}"
   public_subnet_names  = "${var.public_subnet_names}"
-  private_subnets = "${var.private_subnets}"
+  private_subnet_blocks = "${var.private_subnet_blocks}"
   tags            = "${var.tags}"
 }

@@ -15,13 +15,13 @@ This module sets up an AWS backbone base infrastructure.
   (one NAT gateway per AZ).
   - default: "single"
 
-- `private_subnets` (list of maps)
+- `private_subnet_blocks` (list)
 
   List of private subnets: each one takes a `name` and a `base_cidr`.  
   Each subnet CIDR will be computed based on the `base_cidr` and `azs_count`.
   - default: none
 
-- `public_subnets` (list of maps)
+- `public_subnet_blocks` (list)
 
   List of public subnets each one takes a `name` and a `base_cidr`.  
   Each subnet CIDR will be computed based on the `base_cidr` and `azs_count`.
