@@ -38,6 +38,11 @@ output "public_subnets_id" {
   value       = ["${aws_subnet.public.*.id}"]
 }
 
+output "vpc_cidr" {
+  description = "VPC CIDR"
+  value       = "${aws_vpc.main.cidr}"
+}
+
 output "vpc_id" {
   description = "VPC id"
   value       = "${aws_vpc.main.id}"
