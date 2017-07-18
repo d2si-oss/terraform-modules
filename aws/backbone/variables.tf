@@ -14,7 +14,7 @@ variable "private_subnet_blocks" {
   default = []
 }
 
-variable "private_subnet_roles" {
+variable "private_subnet_names" {
   type    = "list"
   default = []
 }
@@ -24,7 +24,7 @@ variable "public_subnet_blocks" {
   default = []
 }
 
-variable "public_subnet_roles" {
+variable "public_subnet_names" {
   type    = "list"
   default = []
 }
