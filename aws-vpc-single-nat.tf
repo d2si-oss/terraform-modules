@@ -27,7 +27,7 @@ variable "private_subnet_blocks" {
   ]
 }
 
-variable "public_subnet_roles" {
+variable "public_subnet_names" {
   type = "list"
 
   default = [
@@ -67,7 +67,7 @@ module "backbone" {
   region                = "${var.region}"
   vpc_cidr              = "${var.vpc_cidr}"
   public_subnet_blocks  = "${var.public_subnet_blocks}"
-  public_subnet_roles   = "${var.public_subnet_roles}"
+  public_subnet_names   = "${var.public_subnet_names}"
   private_subnet_blocks = "${var.private_subnet_blocks}"
   tags                  = "${var.tags}"
 }
@@ -85,7 +85,7 @@ data "aws_subnet_ids" "dmz" {
   vpc_id = "${module.backbone.vpc_id}"
 
   tags {
-    Role = "DMZ"
+    Name = "DMZ"
   }
 }
 
@@ -94,7 +94,7 @@ data "aws_subnet_ids" "loadbalancers" {
   vpc_id     = "${module.backbone.vpc_id}"
 
   tags {
-    Role = "Load-balancers"
+    Name = "Load-balancers"
   }
 }
 
@@ -103,7 +103,7 @@ data "aws_subnet_ids" "private1" {
   vpc_id     = "${module.backbone.vpc_id}"
 
   tags {
-    Role = "private-0"
+    Name = "private-0"
   }
 }
 
@@ -112,7 +112,7 @@ data "aws_subnet_ids" "private2" {
   vpc_id     = "${module.backbone.vpc_id}"
 
   tags {
-    Role = "private-1"
+    Name = "private-1"
   }
 }
 
