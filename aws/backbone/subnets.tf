@@ -24,9 +24,12 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = "true"
 
   tags = "${merge(var.tags,
-                  map("Name", length(var.public_subnet_names)==0 ? 
+                  map("Role", length(var.public_subnet_roles)==0 ?
+                                "public-${count.index / length(module.helper.azs)}" :
+                                element(concat(var.public_subnet_roles,list("")),count.index / length(module.helper.azs))),
+                  map("Name", length(var.public_subnet_roles)==0 ?
                                 "public-${count.index / length(module.helper.azs)}-${module.helper.azs[count.index % length(module.helper.azs)]}" :
-                                "${element(concat(var.public_subnet_names,list("")),count.index / length(module.helper.azs))}-${module.helper.azs[count.index % length(module.helper.azs)]}")) }"
+                                "${element(concat(var.public_subnet_roles,list("")),count.index / length(module.helper.azs))}-${module.helper.azs[count.index % length(module.helper.azs)]}")) }"
 }
 
 resource "aws_subnet" "private" {
@@ -42,7 +45,10 @@ resource "aws_subnet" "private" {
   availability_zone = "${module.helper.azs[count.index % length(module.helper.azs)]}"
 
   tags = "${merge(var.tags,
-                  map("Name", length(var.private_subnet_names)==0 ? 
+                  map("Role", length(var.private_subnet_roles)==0 ?
+                                "private-${count.index / length(module.helper.azs)}" :
+                                element(concat(var.private_subnet_roles,list("")),count.index / length(module.helper.azs))),
+                  map("Name", length(var.private_subnet_roles)==0 ?
                                 "private-${count.index / length(module.helper.azs)}-${module.helper.azs[count.index % length(module.helper.azs)]}" :
-                                "${element(concat(var.private_subnet_names,list("")),count.index / length(module.helper.azs))}-${module.helper.azs[count.index % length(module.helper.azs)]}")) }"
+                                "${element(concat(var.private_subnet_roles,list("")),count.index / length(module.helper.azs))}-${module.helper.azs[count.index % length(module.helper.azs)]}")) }"
 }

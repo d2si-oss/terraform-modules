@@ -21,10 +21,10 @@ This module sets up an AWS backbone base infrastructure.
   variable and `azs_count`.
   - default: none
 
-- `private_subnet_names` (list)
+- `private_subnet_roles` (list)
 
-  List of private subnet names (matching `private_subnet_blocks` ordering).
-  - default: private-${count.index}-${az}
+  List of private subnet roles (matching `private_subnet_blocks` ordering).
+  - default: private-${count.index}
 
 - `public_subnet_blocks` (list)
 
@@ -32,10 +32,10 @@ This module sets up an AWS backbone base infrastructure.
   variable and `azs_count`.
   - default: none
 
-- `public_subnet_names` (list)
+- `public_subnet_roles` (list)
 
-  List of public subnet names (matching `public_subnet_blocks` ordering).
-  - default: public-${count.index}-${az}
+  List of public subnet roles (matching `public_subnet_blocks` ordering).
+  - default: public-${count.index}
 
 - `region` (string)
 

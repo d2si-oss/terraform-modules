@@ -63,7 +63,7 @@ module "backbone" {
   region                = "${var.region}"
   vpc_cidr              = "${var.vpc_cidr}"
   public_subnet_blocks  = "${var.public_subnet_blocks}"
-  public_subnet_names   = "${var.public_subnet_names}"
+  public_subnet_roles   = "${var.public_subnet_roles}"
   private_subnet_blocks = "${var.private_subnet_blocks}"
   tags                  = "${var.tags}"
 }
