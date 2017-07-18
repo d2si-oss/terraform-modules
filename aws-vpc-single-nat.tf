@@ -10,6 +10,14 @@
 # Variables
 #
 
+variable "region" {
+  default = "eu-west-1"
+}
+
+provider "aws" {
+  region = "${var.region}"
+}
+
 variable "private_subnet_blocks" {
   type = "list"
 
@@ -19,7 +27,7 @@ variable "private_subnet_blocks" {
   ]
 }
 
-variable "public_subnet_names" {
+variable "public_subnet_roles" {
   type = "list"
 
   default = [
@@ -35,10 +43,6 @@ variable "public_subnet_blocks" {
     "10.0.0.0/20",
     "10.0.32.0/20",
   ]
-}
-
-variable "region" {
-  default = "eu-west-2"
 }
 
 variable "tags" {
@@ -66,4 +70,68 @@ module "backbone" {
   public_subnet_roles   = "${var.public_subnet_roles}"
   private_subnet_blocks = "${var.private_subnet_blocks}"
   tags                  = "${var.tags}"
+}
+
+data "aws_vpc" "backbone" {
+  depends_on = ["module.backbone"]
+  id         = "${module.backbone.vpc_id}"
+}
+
+data "aws_subnet_ids" "dmz" {
+  # we have to depend on the whole because subnets are create after the VPC
+  # if you create the VPC in a separate stack and use remote state you don't need this dependency
+  depends_on = ["module.backbone"]
+
+  vpc_id = "${module.backbone.vpc_id}"
+
+  tags {
+    Role = "DMZ"
+  }
+}
+
+data "aws_subnet_ids" "loadbalancers" {
+  depends_on = ["module.backbone"]
+  vpc_id     = "${module.backbone.vpc_id}"
+
+  tags {
+    Role = "Load-balancers"
+  }
+}
+
+data "aws_subnet_ids" "private1" {
+  depends_on = ["module.backbone"]
+  vpc_id     = "${module.backbone.vpc_id}"
+
+  tags {
+    Role = "private-0"
+  }
+}
+
+data "aws_subnet_ids" "private2" {
+  depends_on = ["module.backbone"]
+  vpc_id     = "${module.backbone.vpc_id}"
+
+  tags {
+    Role = "private-1"
+  }
+}
+
+output "vpc_cidr" {
+  value = "${data.aws_vpc.backbone.cidr_block}"
+}
+
+output "dmz_subnets" {
+  value = "${data.aws_subnet_ids.dmz.ids}"
+}
+
+output "loadbalancers_subnets" {
+  value = "${data.aws_subnet_ids.loadbalancers.ids}"
+}
+
+output "private1_subnets" {
+  value = "${data.aws_subnet_ids.private1.ids}"
+}
+
+output "private2_subnets" {
+  value = "${data.aws_subnet_ids.private2.ids}"
 }
