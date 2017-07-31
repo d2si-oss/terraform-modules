@@ -54,4 +54,9 @@ This module sets up an AWS backbone base infrastructure.
 
 ## Outputs
 
-None.
+- `private_subnets_cidr` - CIDR of private subnets
+- `private_subnets_id` - Id of private subnets
+- `public_subnets_cidr` - CIDR of public subnets
+- `public_subnets_id` - Id public subnets
+- `vpc_cidr` - CIDR of the VPC
+- `vpc_id` - Id of the VPC
