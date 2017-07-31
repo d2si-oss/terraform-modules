@@ -23,7 +23,7 @@ This module sets up an AWS backbone base infrastructure.
 
 - `private_subnet_names` (list)
 
-  List of private subnet roles (matching `private_subnet_blocks` ordering).
+  List of private subnet names (matching `private_subnet_blocks` ordering).
   - default: private-${count.index}
 
 - `public_subnet_blocks` (list)
@@ -34,7 +34,7 @@ This module sets up an AWS backbone base infrastructure.
 
 - `public_subnet_names` (list)
 
-  List of public subnet roles (matching `public_subnet_blocks` ordering).
+  List of public subnet names (matching `public_subnet_blocks` ordering).
   - default: public-${count.index}
 
 - `region` (string)

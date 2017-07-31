@@ -78,8 +78,9 @@ data "aws_vpc" "backbone" {
 }
 
 data "aws_subnet_ids" "dmz" {
-  # we have to depend on the whole because subnets are create after the VPC
-  # if you create the VPC in a separate stack and use remote state you don't need this dependency
+  # we have to depend on the whole because subnets are create after the VPC;
+  # if you create the VPC in a separate stack and use remote state you don't
+  # need this dependency
   depends_on = ["module.backbone"]
 
   vpc_id = "${module.backbone.vpc_id}"
