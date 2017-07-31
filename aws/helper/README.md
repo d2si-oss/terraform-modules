@@ -12,6 +12,6 @@ included by other modules.
   Amount of availability zones requested.
   - default: amount of AZs in the current region
 
-## Outputs
+## Output
 
 - `azs` - amount of available availability zones in use
