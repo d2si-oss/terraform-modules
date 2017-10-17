@@ -6,10 +6,10 @@ repository contains sample stacks exercising some of these modules.
 
 ## Common guidelines
 
-- only specify resource attributes which aren't default
-- no need to declare the variable type when it's a string
-- module name separator: '-' (dash)
-- variable name separator: '_' (underscore)
+* only specify resource attributes which aren't default
+* no need to declare the variable type when it's a string
+* module name separator: `-` (dash)
+* variable name separator: `_` (underscore)
 
 ## TODO
 
