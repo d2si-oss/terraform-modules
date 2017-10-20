@@ -11,6 +11,12 @@ repository contains sample stacks exercising some of these modules.
 * module name separator: `-` (dash)
 * variable name separator: `_` (underscore)
 
+## Examples
+
+### AWS
+
+* [Backbone](examples/aws/backbone/README.md): Module to create your network stack
+
 ## TODO
 
 ### AWS
