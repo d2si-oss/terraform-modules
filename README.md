@@ -15,6 +15,12 @@ repository contains sample stacks exercising some of these modules.
 
 * [Terraform](https://www.terraform.io) >= 0.10.3
 
+## Examples
+
+### AWS
+
+* [Backbone](examples/aws/backbone/README.md): Module to create your network stack
+
 ## TODO
 
 ### AWS
