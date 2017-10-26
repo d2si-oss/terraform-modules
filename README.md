@@ -11,6 +11,10 @@ repository contains sample stacks exercising some of these modules.
 * module name separator: `-` (dash)
 * variable name separator: `_` (underscore)
 
+## Prerequisites
+
+* [Terraform](https://www.terraform.io) >= 0.10.3
+
 ## Examples
 
 ### AWS
