@@ -23,14 +23,14 @@ resource "google_compute_subnetwork" "subnetworks" {
 
 # resource "google_compute_instance" "nat_gateway" {
 #   name         = "${var.network_name}-nat-gateway"
-#   machine_type = "n1-standard-1"
+#   machine_type = "${var.nat_gateway_instance_type}"
 #   zone         = "${var.gcp_region}-b"
 
 #   can_ip_forward = true
 
 #   boot_disk {
 #     initialize_params {
-#       image = "debian-cloud/debian-9"
+#       image = "${var.nat_gateway_image}"
 #     }
 #   }
 
@@ -43,7 +43,7 @@ resource "google_compute_subnetwork" "subnetworks" {
 #   }
 
 #   service_account {
-#     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
+    # scopes = ["${var.nat_gateway_scopes}"]
 #   }
 
 #   metadata_startup_script = <<EOF

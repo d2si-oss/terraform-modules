@@ -9,3 +9,15 @@ variable "subnetwork_private_ip_google_access" {
 }
 
 variable "network_name" {}
+
+variable "nat_gateway_instance_type" {
+  default = "n1-standard-1"
+}
+
+variable "nat_gateway_image" {
+  default = "debian-cloud/debian-9"
+}
+
+variable "nat_gateway_scopes" {
+  default = ["userinfo-email", "compute-ro", "storage-ro"]
+}
