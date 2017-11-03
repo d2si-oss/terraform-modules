@@ -27,10 +27,13 @@ repository contains sample stacks exercising some of these modules.
 
 - [ ] Tags
 - [ ] SSH Bastion host
-- [ ] RDP Bastion host
 - [ ] NACL
 - [ ] DHCP option set
 - [ ] DNS
 - [ ] VPC flow log
 - [ ] IPsec VPN (connect multiple regions and/or on-prem)
 - [ ] OpenVPN
+
+### GCP
+
+- [ ] SSH Bastion host

@@ -5,7 +5,10 @@ provider "google" {
 
 locals {
   create_nat_gateway = "${var.nat_gateway_subnet == "" ? 0 : 1}"
+  nat_gateway_zone   = "${element(data.google_compute_zones.available.names, 0)}"
 }
+
+data "google_compute_zones" "available" {}
 
 resource "google_compute_network" "network" {
   name                    = "${var.network_name}"
@@ -30,7 +33,7 @@ resource "google_compute_instance" "nat_gateway" {
   count        = "${local.create_nat_gateway}"
   name         = "${var.network_name}-nat-gateway"
   machine_type = "${var.nat_gateway_instance_type}"
-  zone         = "${var.gcp_region}-b"
+  zone         = "${local.nat_gateway_zone}"
 
   can_ip_forward = true
 
@@ -66,7 +69,7 @@ resource "google_compute_route" "default_route" {
   dest_range             = "0.0.0.0/0"
   network                = "${google_compute_network.network.self_link}"
   next_hop_instance      = "${google_compute_instance.nat_gateway.name}"
-  next_hop_instance_zone = "${var.gcp_region}-b"
+  next_hop_instance_zone = "${local.nat_gateway_zone}"
   tags                   = ["nated"]
   priority               = 100
 }
