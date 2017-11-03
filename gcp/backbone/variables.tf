@@ -4,8 +4,18 @@ variable "gcp_region" {
   default = "europe-west1"
 }
 
+variable "subnetworks" {
+  type        = "map"
+  description = "A map of keys (names) and values (CIDR blocks)"
+}
+
 variable "subnetwork_private_ip_google_access" {
   default = true
+}
+
+variable "nat_gateway_subnet" {
+  description = "Subnetwork name in which to create the nat_gateway"
+  default     = ""
 }
 
 variable "network_name" {}
