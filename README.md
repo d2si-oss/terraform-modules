@@ -1,7 +1,7 @@
 # Terraform Modules
 
 This repository holds modules for the [terraform](https://www.terraform.io) IaC
-tool. They are arranged by providers type (e.g. aws, google...). The root of the
+tool. They are arranged by providers type (e.g. `aws`, `gcp`...). The root of the
 repository contains sample stacks exercising some of these modules.
 
 ## Common guidelines
@@ -21,6 +21,10 @@ repository contains sample stacks exercising some of these modules.
 
 * [Backbone](examples/aws/backbone/README.md): Module to create your network stack
 
+### GCP
+
+* [Backbone](examples/gcp/backbone/README.md): Module to create your network stack
+
 ## TODO
 
 ### AWS
@@ -37,3 +41,4 @@ repository contains sample stacks exercising some of these modules.
 ### GCP
 
 - [ ] SSH Bastion host
+- [ ] Make firewall rule allowing traffic through NAT gateway user-configurable
