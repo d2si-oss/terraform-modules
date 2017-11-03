@@ -24,6 +24,15 @@ resource "google_compute_subnetwork" "subnetworks" {
   private_ip_google_access = "${var.subnetwork_private_ip_google_access}"
 }
 
+resource "google_compute_subnetwork" "nat" {
+  count                    = "${local.create_nat_gateway}"
+  name                     = "${var.network_name}-nat"
+  ip_cidr_range            = "${var.nat_gateway_subnet}"
+  network                  = "${google_compute_network.network.self_link}"
+  region                   = "${var.gcp_region}"
+  private_ip_google_access = true
+}
+
 resource "google_compute_address" "nat_gateway" {
   count = "${local.create_nat_gateway}"
   name  = "${var.network_name}-nat-gateway"
@@ -44,7 +53,7 @@ resource "google_compute_instance" "nat_gateway" {
   }
 
   network_interface {
-    subnetwork = "${var.network_name}-${var.nat_gateway_subnet}"
+    subnetwork = "${google_compute_subnetwork.nat.self_link}"
 
     access_config {
       nat_ip = "${google_compute_address.nat_gateway.address}"

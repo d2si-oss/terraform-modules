@@ -14,7 +14,7 @@ variable "subnetwork_private_ip_google_access" {
 }
 
 variable "nat_gateway_subnet" {
-  description = "Subnetwork name in which to create the nat_gateway"
+  description = "Subnetwork CIDR block in which to create the NAT gateway (will not create NAT gateway if unset)"
   default     = ""
 }
 
