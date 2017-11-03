@@ -12,5 +12,5 @@ module "backbone" {
   gcp_project        = "myproject"
   network_name       = "mynetwork"
   subnetworks        = "${var.subnetworks}"
-  nat_gateway_subnet = "front"
+  nat_gateway_subnet = "192.168.0.0/24"
 }
