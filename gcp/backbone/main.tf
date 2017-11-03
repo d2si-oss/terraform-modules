@@ -23,7 +23,7 @@ resource "google_compute_subnetwork" "subnetworks" {
 
 resource "google_compute_address" "nat_gateway" {
   count = "${local.create_nat_gateway}"
-  name  = "nat-gateway"
+  name  = "${var.network_name}-nat-gateway"
 }
 
 resource "google_compute_instance" "nat_gateway" {
@@ -62,10 +62,10 @@ EOF
 
 resource "google_compute_route" "default_route" {
   count                  = "${local.create_nat_gateway}"
-  name                   = "to-nat-gateway"
+  name                   = "${var.network_name}-to-nat-gateway"
   dest_range             = "0.0.0.0/0"
   network                = "${google_compute_network.network.self_link}"
-  next_hop_instance      = "nat-gateway"
+  next_hop_instance      = "${google_compute_instance.nat_gateway.name}"
   next_hop_instance_zone = "${var.gcp_region}-b"
   tags                   = ["nated"]
   priority               = 100
@@ -90,7 +90,7 @@ resource "google_compute_firewall" "local" {
 
 resource "google_compute_firewall" "nat_to_gateway" {
   count   = "${local.create_nat_gateway}"
-  name    = "nat-to-gateway"
+  name    = "${var.network_name}-nat-to-gateway"
   network = "${google_compute_network.network.self_link}"
 
   allow {
