@@ -43,3 +43,4 @@ repository contains sample stacks exercising some of these modules.
 - [ ] gcp/backbone README
 - [ ] SSH Bastion host
 - [ ] Make firewall rule allowing traffic through NAT gateway user-configurable
+- [ ] User-configurable NAT gateway iptables rules
