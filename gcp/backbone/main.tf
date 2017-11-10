@@ -94,7 +94,10 @@ resource "google_compute_firewall" "nat_to_gateway" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "443"]
+  }
+
+  allow {
+    protocol = "udp"
   }
 
   source_tags = ["nated"]
