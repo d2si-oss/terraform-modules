@@ -83,23 +83,6 @@ resource "google_compute_route" "default_route" {
   priority               = 100
 }
 
-resource "google_compute_firewall" "local" {
-  count   = "${local.create_nat_gateway}"
-  name    = "local"
-  network = "${google_compute_network.network.self_link}"
-
-  allow {
-    protocol = "icmp"
-  }
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-
-  source_ranges = ["${var.local_firewall_source_ranges}"]
-}
-
 resource "google_compute_firewall" "nat_to_gateway" {
   count   = "${local.create_nat_gateway}"
   name    = "${var.network_name}-nat-to-gateway"

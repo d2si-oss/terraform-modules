@@ -4,7 +4,7 @@ variable "gcp_project" {
 
 variable "gcp_region" {
   description = "GCP region to create backbone into"
-  default = "europe-west1"
+  default     = "europe-west1"
 }
 
 variable "network_name" {
@@ -17,14 +17,8 @@ variable "subnetworks" {
 }
 
 variable "subnetwork_private_ip_google_access" {
-  default = true
+  default     = true
   description = "Whether the VMs in subnets can access Google services without assigned external IP addresses"
-}
-
-variable "local_firewall_source_ranges" {
-  default = ["10.0.0.0/16"]
-  description = "A list of source CIDR ranges that this firewall applies to"
-  type = "list"
 }
 
 variable "nat_gateway_subnet" {
@@ -44,6 +38,7 @@ variable "nat_gateway_image" {
 
 variable "nat_gateway_iptables" {
   description = "A set of instructions (one per line) used as metadata script and defining the iptables routing configuration"
+
   default = <<EOF
 iptables -t nat -A POSTROUTING -j MASQUERADE
 EOF
