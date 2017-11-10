@@ -10,7 +10,7 @@ Run this example using:
 
 ```hcl
 module "backbone" {
-  source                = "github.com/d2si-oss/terraform-modules//gcp/backbone"
+  source       = "github.com/d2si-oss/terraform-modules//gcp/backbone"
   gcp_project  = "${var.project}"
   network_name = "${var.network_name}"
   subnetworks  = "${var.subnetworks}"
