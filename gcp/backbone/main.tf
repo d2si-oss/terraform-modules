@@ -61,7 +61,7 @@ resource "google_compute_instance" "nat_gateway" {
   }
 
   service_account {
-    scopes = ["${var.nat_gateway_scopes}"]
+    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
 
   metadata_startup_script = <<EOF
