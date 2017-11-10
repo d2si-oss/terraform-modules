@@ -1,12 +1,19 @@
-variable "gcp_project" {}
+variable "gcp_project" {
+  description = "GCP project to create backbone into"
+}
 
 variable "gcp_region" {
+  description = "GCP region to create backbone into"
   default = "europe-west1"
 }
 
+variable "network_name" {
+  description = "Name of the VPC network"
+}
+
 variable "subnetworks" {
-  type        = "map"
   description = "A map of keys (names) and values (CIDR blocks)"
+  type        = "map"
 }
 
 variable "subnetwork_private_ip_google_access" {
@@ -18,16 +25,12 @@ variable "nat_gateway_subnet" {
   default     = ""
 }
 
-variable "network_name" {}
-
 variable "nat_gateway_instance_type" {
-  default = "n1-standard-1"
+  description = "GCE instance type to use for NAT gateway"
+  default     = "n1-standard-1"
 }
 
 variable "nat_gateway_image" {
-  default = "debian-cloud/debian-9"
-}
-
-variable "nat_gateway_scopes" {
-  default = ["userinfo-email", "compute-ro", "storage-ro"]
+  description = "GCE instance image to use for NAT gateway"
+  default     = "debian-cloud/debian-9"
 }
