@@ -64,10 +64,7 @@ resource "google_compute_instance" "nat_gateway" {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
 
-  metadata_startup_script = <<EOF
-echo 1 > /proc/sys/net/ipv4/ip_forward
-iptables -t nat -A POSTROUTING -j MASQUERADE
-EOF
+  metadata_startup_script = "${var.nat_gateway_iptables}"
 
   tags = ["nat-gateway"]
 }
@@ -97,7 +94,7 @@ resource "google_compute_firewall" "local" {
     ports    = ["22"]
   }
 
-  source_ranges = ["10.0.0.0/16"]
+  source_ranges = ["${var.local_firewall_source_ranges}"]
 }
 
 resource "google_compute_firewall" "nat_to_gateway" {
