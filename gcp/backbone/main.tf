@@ -64,7 +64,10 @@ resource "google_compute_instance" "nat_gateway" {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
 
-  metadata_startup_script = "${var.nat_gateway_iptables}"
+  metadata_startup_script = <<EOF
+echo 1 > /proc/sys/net/ipv4/ip_forward
+${var.nat_gateway_iptables}
+EOF
 
   tags = ["nat-gateway"]
 }

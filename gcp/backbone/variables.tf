@@ -43,9 +43,8 @@ variable "nat_gateway_image" {
 }
 
 variable "nat_gateway_iptables" {
-  description = "A set of instructions used as metadata script and defining the iptables routing configuration"
+  description = "A set of instructions (one per line) used as metadata script and defining the iptables routing configuration"
   default = <<EOF
-echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -t nat -A POSTROUTING -j MASQUERADE
 EOF
 }
