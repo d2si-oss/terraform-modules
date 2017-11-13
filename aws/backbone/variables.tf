@@ -41,3 +41,15 @@ variable "tags" {
 variable "vpc_cidr" {
   description = "VPC CIDR block"
 }
+
+variable "vgw_id" {
+  description = "ID of a VGW to attach to the VPC. No attachment if empty"
+  type        = "string"
+  default     = ""
+}
+
+variable "vgw_prop" {
+  description = "Propagate VGW route; all= public and private subnets; private= private subnets only; none= no propagation"
+  type        = "string"
+  default     = "all"
+}

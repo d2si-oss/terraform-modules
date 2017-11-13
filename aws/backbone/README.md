@@ -52,6 +52,18 @@ This module sets up an AWS backbone base infrastructure.
   VPC CIDR block.
   - default: none
 
+- `vgw_id` (string)
+
+  Id ot the virtual gateway to attach to the VPC (`""`: no VGW)
+  - default: ""
+
+- `vgw_prop` (string)
+
+  Propagation of routes configured on the VGW, can be `none` (no propagation),
+  `all` (propagate to all subnets), `private` (propagate only for private subnets)
+  - default: "all"
+
+
 ## Outputs
 
 - `private_subnets_cidr` - CIDR of private subnets
