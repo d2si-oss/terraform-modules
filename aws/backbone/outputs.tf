@@ -20,7 +20,7 @@ output "public_subnets_id" {
 
 output "vpc_cidr" {
   description = "VPC CIDR"
-  value       = "${aws_vpc.main.cidr}"
+  value       = "${aws_vpc.main.cidr_block}"
 }
 
 output "vpc_id" {
