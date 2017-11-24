@@ -54,12 +54,12 @@ This module sets up an AWS backbone base infrastructure.
 
 - `vgw_id` (string)
 
-  Id ot the virtual gateway to attach to the VPC (`""`: no VGW)
+  Id of the Virtual Gateway (VGW) to attach to the VPC (No attachment if empty)
   - default: ""
 
 - `vgw_prop` (string)
 
-  Propagation of routes configured on the VGW, can be `none` (no propagation),
+  Propagation of routes configured on the Virtual Gateway (VGW), can be `none` (no propagation),
   `all` (propagate to all subnets), `private` (propagate only for private subnets)
   - default: "all"
 

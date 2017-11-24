@@ -43,13 +43,13 @@ variable "vpc_cidr" {
 }
 
 variable "vgw_id" {
-  description = "ID of a VGW to attach to the VPC. No attachment if empty"
+  description = "ID of a Virtual Gateway (VGW) to attach to the VPC. No attachment if empty"
   type        = "string"
   default     = ""
 }
 
 variable "vgw_prop" {
-  description = "Propagate VGW route; all= public and private subnets; private= private subnets only; none= no propagation"
-  type        = "string"
+  description = "Propagate Virtual Gateway (VGW) routes; all= public and private subnets; private= private subnets only; none= no propagation"
+type        = "string"
   default     = "all"
 }
