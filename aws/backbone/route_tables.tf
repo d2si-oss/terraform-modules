@@ -27,11 +27,12 @@ resource "aws_route_table" "public" {
   count  = "${length(var.public_subnet_blocks) == 0 ? 0 : 1}"
   tags   = "${merge(var.tags,local.public_name)}"
   vpc_id = "${aws_vpc.main.id}"
+}
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.public.id}"
-  }
+resource "aws_route" "igw" {
+  route_table_id         = "${aws_route_table.public.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = "${aws_internet_gateway.public.id}"
 }
 
 resource "aws_vpn_gateway_route_propagation" "public" {
