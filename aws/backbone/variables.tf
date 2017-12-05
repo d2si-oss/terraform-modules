@@ -50,6 +50,6 @@ variable "vgw_id" {
 
 variable "vgw_prop" {
   description = "Propagate Virtual Gateway (VGW) routes; all= public and private subnets; private= private subnets only; none= no propagation"
-type        = "string"
+  type        = "string"
   default     = "all"
 }
