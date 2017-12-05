@@ -2,20 +2,44 @@
 # Public Route Table
 #
 
+locals {
+  public_name = {
+    Name = "${lookup(var.tags,"Name","Route Table")} Public"
+  }
+
+  private_name = {
+    Name = "${lookup(var.tags,"Name","Route Table")} Private"
+  }
+}
+
 resource "aws_internet_gateway" "public" {
   vpc_id = "${aws_vpc.main.id}"
   tags   = "${var.tags}"
 }
 
+resource "aws_vpn_gateway_attachment" "vgw" {
+  count          = "${var.vgw_id == "" ? 0 : 1}"
+  vpc_id         = "${aws_vpc.main.id}"
+  vpn_gateway_id = "${var.vgw_id}"
+}
+
 resource "aws_route_table" "public" {
   count  = "${length(var.public_subnet_blocks) == 0 ? 0 : 1}"
-  tags   = "${var.tags}"
+  tags   = "${merge(var.tags,local.public_name)}"
   vpc_id = "${aws_vpc.main.id}"
+}
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.public.id}"
-  }
+resource "aws_route" "igw" {
+  route_table_id         = "${aws_route_table.public.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.public.id}"
+}
+
+resource "aws_vpn_gateway_route_propagation" "public" {
+  count          = "${length(var.public_subnet_blocks) > 0 && var.vgw_id != "" && var.vgw_prop == "all" ? 1 : 0}"
+  vpn_gateway_id = "${var.vgw_id}"
+  route_table_id = "${element(aws_route_table.public.*.id,count.index)}"
+  depends_on     = ["aws_vpn_gateway_attachment.vgw"]
 }
 
 resource "aws_route_table_association" "public" {
@@ -31,8 +55,15 @@ resource "aws_route_table_association" "public" {
 resource "aws_route_table" "private_standalone" {
   count = "${length(var.private_subnet_blocks) != 0 && var.nat_type == "none" ? 1 : 0}"
 
-  tags   = "${var.tags}"
+  tags   = "${merge(var.tags,local.private_name)}"
   vpc_id = "${aws_vpc.main.id}"
+}
+
+resource "aws_vpn_gateway_route_propagation" "private_standalone" {
+  count          = "${length(var.private_subnet_blocks) != 0 && var.nat_type == "none" && var.vgw_id != "" && var.vgw_prop != "none" ? 1 : 0}"
+  vpn_gateway_id = "${var.vgw_id}"
+  route_table_id = "${element(aws_route_table.private_standalone.*.id,count.index)}"
+  depends_on     = ["aws_vpn_gateway_attachment.vgw"]
 }
 
 #
@@ -42,8 +73,15 @@ resource "aws_route_table" "private_standalone" {
 resource "aws_route_table" "private_single" {
   count = "${length(var.private_subnet_blocks) != 0 && var.nat_type == "single" ? 1 : 0}"
 
-  tags   = "${var.tags}"
+  tags   = "${merge(var.tags,local.private_name)}"
   vpc_id = "${aws_vpc.main.id}"
+}
+
+resource "aws_vpn_gateway_route_propagation" "private_single" {
+  count          = "${length(var.private_subnet_blocks) != 0 && var.nat_type == "single" && var.vgw_id != "" && var.vgw_prop != "none" ? 1 : 0}"
+  vpn_gateway_id = "${var.vgw_id}"
+  route_table_id = "${element(aws_route_table.private_single.*.id,count.index)}"
+  depends_on     = ["aws_vpn_gateway_attachment.vgw"]
 }
 
 resource "aws_eip" "private_single" {
@@ -86,8 +124,15 @@ resource "aws_route_table_association" "private_single" {
 resource "aws_route_table" "private_multi" {
   count = "${length(var.private_subnet_blocks) != 0 && var.nat_type == "multi" ? length(local.azs) : 0}"
 
-  tags   = "${var.tags}"
+  tags   = "${merge(var.tags,local.private_name)}"
   vpc_id = "${aws_vpc.main.id}"
+}
+
+resource "aws_vpn_gateway_route_propagation" "private_multi" {
+  count          = "${length(var.private_subnet_blocks) != 0 && var.nat_type == "multi" && var.vgw_id != "" && var.vgw_prop != "none" ? length(local.azs) : 0}"
+  vpn_gateway_id = "${var.vgw_id}"
+  route_table_id = "${element(aws_route_table.private_multi.*.id,count.index)}"
+  depends_on     = ["aws_vpn_gateway_attachment.vgw"]
 }
 
 resource "aws_eip" "private_multi" {
